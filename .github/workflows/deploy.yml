@@ -19,5 +19,5 @@ jobs:
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
             cd /home/xs932862/joint-core.com/public_html/test
-            git switch main
+            git checkout main
             git pull origin main
