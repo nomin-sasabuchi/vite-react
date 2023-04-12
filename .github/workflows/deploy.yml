@@ -22,7 +22,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }} # ポート番号
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
-            pwd
+            cd /home/xs932862/joint-core.com/public_html/test
             git checkout main
             git pull origin main
 
