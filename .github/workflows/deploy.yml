@@ -21,4 +21,3 @@ jobs:
             cd /home/xs932862/joint-core.com/public_html/test
             git switch main
             git pull origin main
-            php artisan migrate --force
