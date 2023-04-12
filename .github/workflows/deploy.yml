@@ -22,6 +22,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }} # ポート番号
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
+            pwd
             git checkout main
             git pull origin main
 
