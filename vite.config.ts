@@ -3,9 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "./",
   plugins: [react()],
-  build: {
-    // `root` からの相対パスで指定する
-    outDir: './',
-  },
+
 })
