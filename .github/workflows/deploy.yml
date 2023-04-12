@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: console
         run: |
-          echo ls
+          ls
       - name: ssh and deploy
         uses: appleboy/ssh-action@master # １
         with: # ２ アクションの入力パラメータを指定
