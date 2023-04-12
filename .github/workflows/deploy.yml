@@ -33,6 +33,5 @@ jobs:
           cache-dependency-path: yarn.lock
       - name: yarn build
         run: |
-          cd /home/xs932862/joint-core.com/public_html/test
           yarn install --frozen-lockfile
           yarn build
