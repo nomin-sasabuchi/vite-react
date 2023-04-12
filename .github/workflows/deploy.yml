@@ -16,6 +16,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }} # SSH ユーザ名
           key: ${{ secrets.SSH_PRIVATE_KEY }} # 秘密鍵の内容
           port: ${{ secrets.SSH_PORT }} # ポート番号
+          passphrase: ${{ secrets.SSH_PASS }}
           script: |
             cd /home/xs932862/joint-core.com/public_html/test
             git switch main
