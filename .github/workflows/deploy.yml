@@ -21,3 +21,16 @@ jobs:
             cd /home/xs932862/joint-core.com/public_html/test
             git checkout main
             git pull origin main
+
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.13.1"
+          cache: yarn
+          cache-dependency-path: front-end/yarn.lock
+      - name: yarn install --frozen-lockfile
+        run: |
+          yarn install --frozen-lockfile
+      - name: yarn build
+        run: |
+          yarn build
