@@ -33,7 +33,8 @@ jobs:
           cache-dependency-path: yarn.lock
       - name: yarn install --frozen-lockfile
         run: |
-          yarn install --frozen-lockfile
+          pwd
+          yarn
       - name: yarn build
         run: |
           yarn build
