@@ -8,6 +8,9 @@ jobs:
   job1:
     name: Deploy
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: /home/xs932862/joint-core.com/public_html/test
     steps:
       - name: ssh and deploy
         uses: appleboy/ssh-action@master # １
@@ -18,7 +21,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }} # ポート番号
           passphrase: ${{ secrets.SSH_PASS }}
           script: |
-            cd /home/xs932862/joint-core.com/public_html/test
             git checkout main
             git pull origin main
 
