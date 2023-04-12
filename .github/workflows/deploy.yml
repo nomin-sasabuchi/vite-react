@@ -27,7 +27,7 @@ jobs:
           script: |
             git checkout main
             git pull origin main
-￥
+            
       - uses: actions/setup-node@v3
         with:
           node-version: "16.13.1"
