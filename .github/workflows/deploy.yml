@@ -34,7 +34,6 @@ jobs:
       - name: yarn install --frozen-lockfile
         run: |
           pwd
-          yarn
       - name: yarn build
         run: |
           yarn build
