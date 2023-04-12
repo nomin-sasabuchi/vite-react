@@ -12,6 +12,9 @@ jobs:
       run:
         working-directory: /home/xs932862/joint-core.com/public_html/test
     steps:
+      - name: console
+        run: |
+          echo ls
       - name: ssh and deploy
         uses: appleboy/ssh-action@master # １
         with: # ２ アクションの入力パラメータを指定
