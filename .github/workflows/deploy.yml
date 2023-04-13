@@ -31,7 +31,7 @@ jobs:
       - name: Run build task
         run: |
           yarn build
-         working-directory: ./front-end
+        working-directory: ./front-end
         
       
       - name: 📂 Sync files
