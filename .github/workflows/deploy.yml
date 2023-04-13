@@ -32,8 +32,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
-          protocol: ftps
+          server-dir: /joint-core.com/public_html/test/
       # - name: Deploy to Server
       #   uses: easingthemes/ssh-deploy@main
       #   env:
