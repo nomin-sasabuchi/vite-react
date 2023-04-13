@@ -19,7 +19,7 @@ jobs:
         # env:
         #   VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
         run: |
-          echo "VITE_SENTRY_DSN={{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
 
 
       - uses: actions/setup-node@v3
