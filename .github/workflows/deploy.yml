@@ -27,9 +27,11 @@ jobs:
       - name: Install yarn dependencies
         run: |
           yarn install --frozen-lockfile
+        working-directory: ./front-end
       - name: Run build task
         run: |
           yarn build
+         working-directory: ./front-end
         
       
       - name: 📂 Sync files
