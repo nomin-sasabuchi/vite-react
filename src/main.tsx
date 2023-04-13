@@ -4,9 +4,9 @@ import './index.css'
 import * as Sentry from "@sentry/react";
 import App from "./App";
 
-// Sentry.init({
-//   dsn: SentryDSN,
-// });
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+});
 
 const container = document.getElementById('root');
 if (container) {

@@ -13,6 +13,12 @@ jobs:
     #     working-directory: /home/xs932862/joint-core.com/public_html/test
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Front Environments
+        # working-directory: front-end
+        env: |
+          VITE_SENTRY_DSN:{{ secrets.SENTRY_DSN }}
+
       - uses: actions/setup-node@v3
         with:
           node-version: "16.13.1"
@@ -32,7 +38,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /joint-core.com/public_html/test/
+          server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
+          protocol: ftps
       # - name: Deploy to Server
       #   uses: easingthemes/ssh-deploy@main
       #   env:
