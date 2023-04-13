@@ -18,6 +18,10 @@ jobs:
         # working-directory: front-end
         env: |
           VITE_SENTRY_DSN:{{ secrets.SENTRY_DSN }}
+        
+      - name: console
+        env: |
+          echo $VITE_SENTRY_DSN
 
       - uses: actions/setup-node@v3
         with:
