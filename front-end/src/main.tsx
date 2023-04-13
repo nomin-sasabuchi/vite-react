@@ -8,6 +8,8 @@ Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
 });
 
+
+
 const container = document.getElementById('root');
 if (container) {
   const root = createRoot(container);
