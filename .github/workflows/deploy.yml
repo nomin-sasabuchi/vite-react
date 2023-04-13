@@ -17,9 +17,9 @@ jobs:
       - name: Create Sentry release
         uses: getsentry/action-release@v1
         env:
-          VITE_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          VITE_SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          VITE_SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           # SENTRY_URL: https://sentry.io/
         with:
           environment: production
@@ -28,6 +28,9 @@ jobs:
       - name: Set up Front Environments
         run: |
           echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> $GITHUB_ENV
         working-directory: ./front-end
 
       - uses: actions/setup-node@v3
