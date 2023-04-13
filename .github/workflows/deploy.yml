@@ -29,10 +29,11 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
             SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            # ARGS: "-rlgoDzvc -i --delete"
+            ARGS: "-rlgoDzvc -i --delete"
             SOURCE: "dist/"
             REMOTE_HOST: ${{ secrets.SSH_HOST }}
             REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+            REMOTE_PASS: ${{ secrets.SSH_PASS }}
             TARGET: ${{ secrets.REMOTE_TARGET_DIRECTORY }}
             EXCLUDE: "/dist/, /node_modules/"
             REMOTE_PORT: ${{ secrets.SSH_PORT }}
