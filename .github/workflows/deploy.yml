@@ -1,8 +1,10 @@
 name: Release to Production Environment
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
+    tags:
+      - v*.*.*
 
 jobs:
   job1:
