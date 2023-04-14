@@ -36,11 +36,12 @@ jobs:
         working-directory: ./front-end
 
       - name: Set Tag
+        env:
+          TAG: secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}
         run: |
-          echo "${{ secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}"
+          echo $TAG
         working-directory: ./front-end
-        # if: startsWith(github.ref, 'refs/tags/v')       echo "VITE_SENTRY_RELEASE_VERSION=${{ secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}" >> $GITHUB_ENV
-
+        # if: startsWith(github.ref, 'refs/tags/v')
       - uses: actions/setup-node@v3
         with:
           node-version: "19.0.1"
