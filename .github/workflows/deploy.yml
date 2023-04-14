@@ -16,33 +16,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create Sentry release
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          # SENTRY_URL: https://sentry.io/
-        with:
-          environment: production
-          working-directory: ./front-end
+      # - name: Create Sentry release
+      #   uses: getsentry/action-release@v1
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      #     # SENTRY_URL: https://sentry.io/
+      #   with:
+      #     environment: production
+      #     working-directory: ./front-end
 
-      - name: Set up Front Environments 
-        run: |
-          echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
-          echo "VITE_SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
-          echo "VITE_SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> $GITHUB_ENV
-          echo "VITE_SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> $GITHUB_ENV
-        working-directory: ./front-end
+      # - name: Set up Front Environments 
+      #   run: |
+      #     echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
+      #     echo "VITE_SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
+      #     echo "VITE_SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> $GITHUB_ENV
+      #     echo "VITE_SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> $GITHUB_ENV
+      #   working-directory: ./front-end
 
       - name: Set Tag
-        env:
-          TAG1: ${GITHUB_REF##*/}
-          TAG2: ${{ secrets.SENTRY_PROJECT }} 
         run: |
-          echo $TAG1
-          echo $TAG2
-          echo "${{$TAG1}}${{$TAG2}}"
+          echo "${{secrets.SENTRY_PROJECT}}${{secrets.SENTRY_ORG}}"
         working-directory: ./front-end
         # if: startsWith(github.ref, 'refs/tags/v')
       # - uses: actions/setup-node@v3
