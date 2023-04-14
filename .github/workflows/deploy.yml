@@ -35,7 +35,7 @@ jobs:
           echo "VITE_SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> $GITHUB_ENV
         working-directory: ./front-end
 
-      - name: Set up Tag
+      - name: Set Tag
         env:
           TAG: ${{ github.ref }} | sed -e "s#refs/tags/##g
         run: |
