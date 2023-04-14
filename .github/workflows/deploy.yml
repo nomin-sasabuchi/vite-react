@@ -37,9 +37,12 @@ jobs:
 
       - name: Set Tag
         env:
-          TAG: ${{ secrets.SENTRY_PROJECT }} ${GITHUB_REF##*/}
+          TAG1: ${GITHUB_REF##*/}
+          TAG2: ${{ secrets.SENTRY_PROJECT }} 
         run: |
-          echo $TAG
+          echo $TAG1
+          echo $TAG2
+          echo "${{$TAG1}}${{$TAG2}}"
         working-directory: ./front-end
         # if: startsWith(github.ref, 'refs/tags/v')
       # - uses: actions/setup-node@v3
