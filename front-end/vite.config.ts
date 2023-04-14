@@ -14,7 +14,7 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       react(),
       // Put the Sentry vite plugin after all other plugins
-      sentryVitePlugin({
+      env.VITE_SENTRY_AUTH_TOKEN && sentryVitePlugin({
         org: env.VITE_SENTRY_ORG,
         project:  env.VITE_SENTRY_PROJECT,
         include: "./dist",
