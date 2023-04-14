@@ -37,10 +37,9 @@ jobs:
 
       - name: Set Tag
         run: |
-          echo ${{ secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}
-          echo "VITE_SENTRY_RELEASE_VERSION=${{ secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}" >> $GITHUB_ENV
+          echo "${{ secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}"
         working-directory: ./front-end
-        # if: startsWith(github.ref, 'refs/tags/v')
+        # if: startsWith(github.ref, 'refs/tags/v')       echo "VITE_SENTRY_RELEASE_VERSION=${{ secrets.SENTRY_PROJECT }@${GITHUB_REF##*/}" >> $GITHUB_ENV
 
       - uses: actions/setup-node@v3
         with:
