@@ -37,7 +37,7 @@ jobs:
 
       - name: Set Tag
         env:
-          TAG: ${{ secrets.SENTRY_PROJECT }}@${GITHUB_REF##*/}
+          TAG: ${{ secrets.SENTRY_PROJECT }}@${{GITHUB_REF##*/}}
         run: |
           echo $TAG
         working-directory: ./front-end
