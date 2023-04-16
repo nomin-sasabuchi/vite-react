@@ -13,12 +13,11 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       react(),
       // Put the Sentry vite plugin after all other plugins
-      env.VITE_SENTRY_AUTH_TOKEN && sentryVitePlugin({
+      sentryVitePlugin({
         org: env.VITE_SENTRY_ORG,
         project:  env.VITE_SENTRY_PROJECT,
         include: "./dist",
         authToken:  env.VITE_SENTRY_AUTH_TOKEN,
-        release:env.VITE_SENTRY_RELEASE_VERSION,
       }),
     ],
   }
