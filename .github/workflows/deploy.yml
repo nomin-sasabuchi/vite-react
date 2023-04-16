@@ -40,6 +40,7 @@ jobs:
           TAG: ${GITHUB_REF##*/}
         run: |
           echo "${{secrets.SENTRY_PROJECT}}@${{env.TAG}}"
+          echo "${{secrets.SENTRY_PROJECT}}@${GITHUB_REF##*/}"
         working-directory: ./front-end
         # if: startsWith(github.ref, 'refs/tags/v')
       # - uses: actions/setup-node@v3
