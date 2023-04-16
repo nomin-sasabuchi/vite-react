@@ -18,6 +18,7 @@ export default defineConfig(({ command, mode }) => {
         project:  env.VITE_SENTRY_PROJECT,
         include: "./dist",
         authToken:  env.VITE_SENTRY_AUTH_TOKEN,
+        release: "my-project-name@2.3.12",
       }),
     ],
   }
