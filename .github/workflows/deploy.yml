@@ -54,7 +54,7 @@ jobs:
         with:
           environment: production
           working-directory: ./front-end
-          version: ${{env.TAG}}
+          version: ${{env.VITE_SENTRY_RELEASE_VERSION}}
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
