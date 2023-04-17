@@ -13,17 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create Sentry release
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          # SENTRY_URL: https://sentry.io/
-        with:
-          environment: production
-          working-directory: ./front-end
-
       - name: Set up Front Environments 
         run: |
           echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
@@ -39,6 +28,7 @@ jobs:
           echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}@${{env.TAG}}"
         working-directory: ./front-end
         if: startsWith(github.ref, 'refs/tags/v')
+
       - uses: actions/setup-node@v3
         with:
           node-version: "19.0.1"
@@ -53,6 +43,16 @@ jobs:
           yarn build
         working-directory: ./front-end
         
+      - name: Create Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          # SENTRY_URL: https://sentry.io/
+        with:
+          environment: production
+          working-directory: ./front-end
       
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
