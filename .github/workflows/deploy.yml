@@ -10,6 +10,8 @@ jobs:
   job1:
     name: Deploy
     runs-on: ubuntu-latest
+    env: 
+      TAG: ${GITHUB_REF##*/}
     steps:
       - uses: actions/checkout@v3
 
@@ -22,8 +24,6 @@ jobs:
         working-directory: ./front-end
 
       - name: Set Tag
-        env: 
-          TAG: ${GITHUB_REF##*/}
         run: |
           echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}@${{env.TAG}}" >> $GITHUB_ENV
         working-directory: ./front-end
@@ -54,10 +54,8 @@ jobs:
         with:
           environment: production
           working-directory: ./front-end
-          version: v1.0
+          version: ${{env.TAG}}
 
-   
-      
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
