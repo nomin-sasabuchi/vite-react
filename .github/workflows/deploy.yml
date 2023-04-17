@@ -13,16 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Create Sentry release
-        uses: getsentry/action-release@v1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-          # SENTRY_URL: https://sentry.io/
-        with:
-          environment: production
-          working-directory: ./front-end
+      # - name: Create Sentry release
+      #   uses: getsentry/action-release@v1
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      #     SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      #     SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+      #     # SENTRY_URL: https://sentry.io/
+      #   with:
+      #     environment: production
+      #     working-directory: ./front-end
 
       - name: Set up Front Environments 
         run: |
@@ -33,13 +33,10 @@ jobs:
         working-directory: ./front-end
 
       - name: Set Tag
-        env: 
-          TAG: ${GITHUB_REF##*/}
         run: |
-          echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}@${{env.TAG}}"
         working-directory: ./front-end
-        #echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}@${{env.TAG}}"
-        # if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v')
       - uses: actions/setup-node@v3
         with:
           node-version: "19.0.1"
@@ -64,15 +61,15 @@ jobs:
           local-dir: ./front-end/dist/
           server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
           protocol: ftps
-      - name: Deploy to Server
-        uses: easingthemes/ssh-deploy@main
-        env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            ARGS: "-rlgoDzvc -i --delete"
-            SOURCE: "dist/"
-            REMOTE_HOST: ${{ secrets.SSH_HOST }}
-            REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-            REMOTE_PASS: ${{ secrets.SSH_PASS }}
-            TARGET: ${{ secrets.REMOTE_TARGET_DIRECTORY }}
-            EXCLUDE: "/dist/, /node_modules/"
-            REMOTE_PORT: ${{ secrets.SSH_PORT }}
+      # - name: Deploy to Server
+      #   uses: easingthemes/ssh-deploy@main
+      #   env:
+      #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      #       ARGS: "-rlgoDzvc -i --delete"
+      #       SOURCE: "dist/"
+      #       REMOTE_HOST: ${{ secrets.SSH_HOST }}
+      #       REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+      #       REMOTE_PASS: ${{ secrets.SSH_PASS }}
+      #       TARGET: ${{ secrets.REMOTE_TARGET_DIRECTORY }}
+      #       EXCLUDE: "/dist/, /node_modules/"
+      #       REMOTE_PORT: ${{ secrets.SSH_PORT }}
