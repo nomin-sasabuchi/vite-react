@@ -55,15 +55,15 @@ jobs:
           working-directory: ./front-end
           version: ${{env.VITE_SENTRY_RELEASE_VERSION}}
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.0.0
-        with:
-          server: ${{secrets.FTP_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./front-end/dist/
-          server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
-          protocol: ftps
+      # - name: 📂 Sync files
+      #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      #   with:
+      #     server: ${{secrets.FTP_HOST }}
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     password: ${{ secrets.FTP_PASSWORD }}
+      #     local-dir: ./front-end/dist/
+      #     server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
+      #     protocol: ftps
       # - name: Deploy to Server
       #   uses: easingthemes/ssh-deploy@main
       #   env:
