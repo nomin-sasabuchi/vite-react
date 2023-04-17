@@ -33,6 +33,8 @@ jobs:
         working-directory: ./front-end
 
       - name: Set Tag
+        env: 
+          TAG: ${GITHUB_REF##*/}
         run: |
           echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}@${{env.TAG}}"
         working-directory: ./front-end
