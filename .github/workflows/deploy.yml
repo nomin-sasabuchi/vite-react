@@ -15,33 +15,28 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Set up Front Environments 
-      #   run: |
-      #     echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
-      #     echo "VITE_SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
-      #     echo "VITE_SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> $GITHUB_ENV
-      #     echo "VITE_SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> $GITHUB_ENV
-      #   working-directory: ./front-end
-
-      - name: Set Tag
+      - name: Set up Front Environments 
         run: |
+          echo "VITE_SENTRY_DSN=${{ secrets.SENTRY_DSN }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_ORG=${{ secrets.SENTRY_ORG }}" >> $GITHUB_ENV
+          echo "VITE_SENTRY_PROJECT=${{ secrets.SENTRY_PROJECT }}" >> $GITHUB_ENV
           echo "VITE_SENTRY_RELEASE_VERSION=${{secrets.SENTRY_PROJECT}}@${GITHUB_REF##*/}" >> $GITHUB_ENV
         working-directory: ./front-end
-        if: startsWith(github.ref, 'refs/tags/v')
 
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: "19.0.1"
-      #     cache: yarn
-      #     cache-dependency-path: front-end/yarn.lock
-      # - name: Install yarn dependencies
-      #   run: |
-      #     yarn install --frozen-lockfile
-      #   working-directory: ./front-end
-      # - name: Run build task
-      #   run: |
-      #     yarn build
-      #   working-directory: ./front-end
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "19.0.1"
+          cache: yarn
+          cache-dependency-path: front-end/yarn.lock
+      - name: Install yarn dependencies
+        run: |
+          yarn install --frozen-lockfile
+        working-directory: ./front-end
+      - name: Run build task
+        run: |
+          yarn build
+        working-directory: ./front-end
         
       - name: Create Sentry release
         uses: getsentry/action-release@v1
@@ -55,24 +50,24 @@ jobs:
           working-directory: ./front-end
           version: ${{env.VITE_SENTRY_RELEASE_VERSION}}
 
-      # - name: 📂 Sync files
-      #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      #   with:
-      #     server: ${{secrets.FTP_HOST }}
-      #     username: ${{ secrets.SSH_USERNAME }}
-      #     password: ${{ secrets.FTP_PASSWORD }}
-      #     local-dir: ./front-end/dist/
-      #     server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
-      #     protocol: ftps
-      # - name: Deploy to Server
-      #   uses: easingthemes/ssh-deploy@main
-      #   env:
-      #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #       ARGS: "-rlgoDzvc -i --delete"
-      #       SOURCE: "dist/"
-      #       REMOTE_HOST: ${{ secrets.SSH_HOST }}
-      #       REMOTE_USER: ${{ secrets.SSH_USERNAME }}
-      #       REMOTE_PASS: ${{ secrets.SSH_PASS }}
-      #       TARGET: ${{ secrets.REMOTE_TARGET_DIRECTORY }}
-      #       EXCLUDE: "/dist/, /node_modules/"
-      #       REMOTE_PORT: ${{ secrets.SSH_PORT }}
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{secrets.FTP_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./front-end/dist/
+          server-dir: '${{ secrets.REMOTE_TARGET_DIRECTORY }}/'
+          protocol: ftps
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@main
+        env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            ARGS: "-rlgoDzvc -i --delete"
+            SOURCE: "dist/"
+            REMOTE_HOST: ${{ secrets.SSH_HOST }}
+            REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+            REMOTE_PASS: ${{ secrets.SSH_PASS }}
+            TARGET: ${{ secrets.REMOTE_TARGET_DIRECTORY }}
+            EXCLUDE: "/dist/, /node_modules/"
+            REMOTE_PORT: ${{ secrets.SSH_PORT }}
